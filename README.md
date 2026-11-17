@@ -10,7 +10,7 @@
 
 ### 1. תרשים מחלקות וקשרים (UML / Architecture Diagram)
 
-```
+```mermaid
 classDiagram
     direction TB
 
