@@ -106,6 +106,7 @@ public class PlayerController : MonoBehaviour
             // אינטראקציה (למשל סיבוב המראה של המלאך)
             if (interactAction != null && interactAction.action != null && interactAction.action.WasPressedThisFrame())
             {
+                Debug.Log("interact pressed");
                 StartInteract();
             }
         }
@@ -133,16 +134,13 @@ public class PlayerController : MonoBehaviour
 
     public void StartInteract()
     {
-        lockTimer = interactDuration;
+        // lockTimer = interactDuration;
 
-        if (anim != null && anim.runtimeAnimatorController != null)
-            anim.SetTrigger("Interact");
+        // if (anim != null && anim.runtimeAnimatorController != null)
+        //     anim.SetTrigger("Interact");
 
-        Invoke(nameof(FireInteract), interactFireTime);
+        onInteract.Invoke();
     }
 
-    private void FireInteract()
-    {
-        onInteract?.Invoke();
-    }
+    
 }

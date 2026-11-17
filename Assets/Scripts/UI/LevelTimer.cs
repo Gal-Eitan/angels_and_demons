@@ -1,5 +1,7 @@
 using UnityEngine;
 
+using UnityEngine.SceneManagement;
+
 public class LevelTimer : MonoBehaviour
 {
     [Header("Configuration")]
@@ -13,6 +15,7 @@ public class LevelTimer : MonoBehaviour
     [SerializeField] private FloatEventChannelSO timeUpdatedChannel;
     [SerializeField] private VoidEventChannelSO timeExpiredChannel;
 
+    [SerializeField] private LevelData levelData;
     private float currentTime;
     private bool isRunning = false;
 
@@ -52,6 +55,7 @@ public class LevelTimer : MonoBehaviour
             isRunning = false;
             timeUpdatedChannel?.RaiseEvent(currentTime);
             timeExpiredChannel?.RaiseEvent();
+            timeUp();
             return;
         }
 
@@ -71,7 +75,17 @@ public class LevelTimer : MonoBehaviour
         if (currentTime <= 0f && isRunning)
         {
             isRunning = false;
+            timeUp();
             timeExpiredChannel?.RaiseEvent();
         }
     }
+
+    private async void timeUp()
+    {
+        Debug.Log("time up");
+        levelData.isTimeUp=true;
+        await Awaitable.WaitForSecondsAsync(1f);
+        SceneManager.LoadScene("GameResults");
+    }
+    
 }
