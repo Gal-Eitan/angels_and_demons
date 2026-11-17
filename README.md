@@ -5,25 +5,49 @@
 בחירה במיקום הנכון פותחת את הרמה עצמה ומתחילה את הטיימר.
 ברמה עצמה השחקן צריך להגיע לקרדינל ולנסות להצילו בזמן(בשלב זה הרוצח משתמש ב"יסוד האדמה" כדי להרוג אותו).
 
-# יחסי המחלקות
-מערכת המשחק בנויה בארכיטקטורה מבוזרת (Decoupled Architecture) המשלבת **ScriptableObjects** לשיתוף נתונים ולהעברת אירועים (Event Channels), יחד עם **UnityEvents** לאינטראקציות מקומיות בסצנה. ארכיטקטורה זו מאפשרת לרכיבי הלוגיקה, הפיזיקה וממשק המשתמש (UI) לתקשר ביניהם ללא תלות ישירה (Tight Coupling) זה בזה.
+# יחסי המחלקות# ארכיטקטורה ויחסי מחלקות (Class Relationships)
 
-### 1. תרשים מחלקות וקשרים (UML / Architecture Diagram)
+## 1. תיאור קצר של יחסי המחלקות
+
+המערכת בנויה בארכיטקטורה מונחית אירועים (Event-Driven) המפרידה בין **לוגיקת המשחק והפיסיקה**, **ניהול נתונים ומצב**, ו-**ממשק המשתמש (UI)**:
+
+* **שכבת התשתית והנתונים (`ScriptableObject`):**
+  * **ערוצי אירועים (`VoidEventChannelSO`, `FloatEventChannelSO`):** מתווכים בין משדרים למאזינים ללא הפניות ישירות ביניהם[cite: 7, 9].
+  * **קונפיגורציה ומצב (`LevelConfigSO`, `LevelData`):** `LevelConfigSO` שומר פרמטרים קבועים לשלב (`startingTime`, `wrongMapPenalty`, `rockHitPenalty`)[cite: 8], בעוד `LevelData` משמש לאחסון מצב הריצה הדינמי של השלב (`isGateOpen`, `isCardinalSafe`, `isPlayerDead`, `isTimeUp`) ומעביר אותו מסצנת המשחק (`Level1Scene`) לסצנת הסיום (`GameResults`)[cite: 11, 12, 13, 18, 20].
+* **שכבת ניהול השלב והממשק:**
+  * `MapRiddleController` מנהל את חידת המיקום הפותחת; בחירה נכונה משדרת אירוע להתחלת השלב (`levelStartedChannel`), ובחירה שגויה משדרת קנס זמן (`timePenaltyChannel`) מתוך `LevelConfigSO`[cite: 19].
+  * `LevelTimer` מאזין לתחילת השלב ולקנסות הזמן, מעדכן בכל פריים את `TimerUIView` דרך `timeUpdatedChannel`, ובסיום הזמן מעדכן את `LevelData` ומעביר לסצנת `GameResults`[cite: 18, 21].
+  * `showResults` קורא את הדגלים מ-`LevelData` בסצנת הסיום, מציג את סיבת הניצחון/הפסד, ומאפס את הנתונים (`ResetData()`) בעת התחלת משחק חדש[cite: 20].
+* **שכבת השחקן והאינטראקציות בעולם:**
+  * `PlayerController` מנהל תנועה, קפיצה ומניעת החלקה במדרגות, ומחשוף אירוע אינטראקציה מקומי (`UnityEvent onInteract`)[cite: 17].
+  * אובייקטי הסביבה האינטראקטיביים (`AngelInteractor`, `gateOpener`, `CardinalLifter`) מזהים כניסת שחקן (`OnTriggerEnter2D`), נרשמים זמנית ל-`onInteract` של `PlayerController`, ומפעילים את הלוגיקה שלהם (סיבוב מראה ושחרור סלע, פתיחת שער, או הצלת הקרדינל ומעבר לסצנת הסיום)[cite: 10, 11, 13].
+  * **מכשולים ופיסיקה:** `StairSwitch` מבטל התנגשות מול המדרגות העליונות (`Physics2D.IgnoreCollision`) למעבר חלק בין המפלסים[cite: 16]; `PlayerDetector` מזהה את השחקן באמצעות `Physics2D.Raycast` ומפעיל `UnityEvent`[cite: 14]; `SpawnedStone` נע על המדרגות, משדר קנס זמן (`stoneHittedPlayer`) בפגיעה בשחקן ומשדר `stoneDestroyedChannel` בהשמדתו[cite: 15]; ו-`FallingDetector` מזהה נפילה לתהום ומסיים את המשחק[cite: 12].
+
+---
+
+## 2. תרשים מחלקות (UML Class Diagram)
 
 ```mermaid
 classDiagram
-    direction TB
+    class MonoBehaviour
+    class ScriptableObject
 
-    %% ScriptableObjects - Data & Config
+    %% ScriptableObjects & Data
+    class VoidEventChannelSO {
+        +UnityAction OnEventRaised
+        +RaiseEvent()
+    }
+    class FloatEventChannelSO {
+        +UnityAction~float~ OnEventRaised
+        +RaiseEvent(float value)
+    }
     class LevelConfigSO {
-        <<ScriptableObject>>
         +float startingTime
         +float wrongMapPenalty
         +float rockHitPenalty
     }
-
     class LevelData {
-        <<ScriptableObject>>
+        <<Shared Data>>
         +bool isGateOpen
         +bool isCardinalSafe
         +bool isPlayerDead
@@ -31,27 +55,18 @@ classDiagram
         +ResetData()
     }
 
-    %% ScriptableObjects - Event Channels
-    class VoidEventChannelSO {
-        <<ScriptableObject>>
-        +UnityAction OnEventRaised
-        +RaiseEvent()
-    }
+    ScriptableObject <|-- VoidEventChannelSO
+    ScriptableObject <|-- FloatEventChannelSO
+    ScriptableObject <|-- LevelConfigSO
+    ScriptableObject <|-- LevelData
 
-    class FloatEventChannelSO {
-        <<ScriptableObject>>
-        +UnityAction~float~ OnEventRaised
-        +RaiseEvent(float)
-    }
-
-    %% Core & UI Controllers
-    class MapRiddleController {
-        -LevelConfigSO levelConfig
-        -FloatEventChannelSO timePenaltyChannel
+    %% Core Controllers & UI
+    class PlayerController {
+        +UnityEvent onInteract
         -VoidEventChannelSO levelStartedChannel
-        +SelectLocation(int)
+        -EnableControl()
+        +StartInteract()
     }
-
     class LevelTimer {
         -LevelConfigSO levelConfig
         -LevelData levelData
@@ -63,172 +78,130 @@ classDiagram
         -ApplyPenalty(float)
         -timeUp()
     }
-
+    class MapRiddleController {
+        -LevelConfigSO levelConfig
+        -FloatEventChannelSO timePenaltyChannel
+        -VoidEventChannelSO levelStartedChannel
+        +SelectLocation(int)
+    }
     class TimerUIView {
         -FloatEventChannelSO timeUpdatedChannel
         -UpdateDisplay(float)
     }
-
     class showResults {
         -LevelData levelData
         +playAgain()
     }
 
-    %% Player & Physics
-    class PlayerController {
-        +UnityEvent onInteract
-        -VoidEventChannelSO levelStartedChannel
-        -EnableControl()
-        +StartInteract()
-    }
-
-    class StairSwitch {
-        -Collider2D upperStairsCollider
-        -OnTriggerEnter2D(Collider2D)
-    }
-
-    %% World Interactors & Hazards
+    %% World Interactions & Hazards
     class AngelInteractor {
         -GameObject player
-        -GameObject reflection
-        -GameObject boulder
         +correctMirror()
     }
-
     class gateOpener {
         -GameObject player
         -LevelData levelData
         +openGate()
     }
-
     class CardinalLifter {
         -GameObject player
         -LevelData levelData
         +LiftCardinal()
     }
-
     class FallingDetector {
         -LevelData levelData
-        -OnTriggerEnter2D(Collider2D)
     }
-
     class PlayerDetector {
         -UnityEvent OnPlayerDetect
-        -Update()
     }
-
     class SpawnedStone {
+        -float stoneHitPlayerTimePenality
         -VoidEventChannelSO stoneDestroyedChannel
         -FloatEventChannelSO stoneHittedPlayer
-        -OnCollisionEnter2D(Collision2D)
-        -OnDestroy()
+    }
+    class StairSwitch {
+        -Collider2D upperStairsCollider
     }
 
-    %% Event Broadcasting (Senders)
-    MapRiddleController ..> VoidEventChannelSO : Raises (levelStarted)
-    MapRiddleController ..> FloatEventChannelSO : Raises (wrongMapPenalty)
-    LevelTimer ..> FloatEventChannelSO : Raises (timeUpdated)
-    LevelTimer ..> VoidEventChannelSO : Raises (timeExpired)
-    SpawnedStone ..> FloatEventChannelSO : Raises (stoneHittedPlayer)
-    SpawnedStone ..> VoidEventChannelSO : Raises (stoneDestroyed)
+    MonoBehaviour <|-- PlayerController
+    MonoBehaviour <|-- LevelTimer
+    MonoBehaviour <|-- MapRiddleController
+    MonoBehaviour <|-- TimerUIView
+    MonoBehaviour <|-- showResults
+    MonoBehaviour <|-- AngelInteractor
+    MonoBehaviour <|-- gateOpener
+    MonoBehaviour <|-- CardinalLifter
+    MonoBehaviour <|-- FallingDetector
+    MonoBehaviour <|-- PlayerDetector
+    MonoBehaviour <|-- SpawnedStone
+    MonoBehaviour <|-- StairSwitch
 
-    %% Event Listening (Receivers)
-    VoidEventChannelSO --> PlayerController : Notifies (EnableControl)
-    VoidEventChannelSO --> LevelTimer : Notifies (StartTimer)
-    FloatEventChannelSO --> LevelTimer : Notifies (ApplyPenalty)
-    FloatEventChannelSO --> TimerUIView : Notifies (UpdateDisplay)
+    %% Event Channel Relationships (Broadcast & Listen)
+    MapRiddleController ..> VoidEventChannelSO : raises (levelStarted)
+    VoidEventChannelSO ..> PlayerController : notifies (EnableControl)
+    VoidEventChannelSO ..> LevelTimer : notifies (StartTimer)
 
-    %% Direct / Local UnityEvent Relationships
-    PlayerController o-- AngelInteractor : Subscribes to onInteract
-    PlayerController o-- gateOpener : Subscribes to onInteract
-    PlayerController o-- CardinalLifter : Subscribes to onInteract
-    StairSwitch ..> PlayerController : Detects & Ignores Collision
-    PlayerDetector ..> PlayerController : Detects via Raycast
+    MapRiddleController ..> FloatEventChannelSO : raises (timePenalty)
+    SpawnedStone ..> FloatEventChannelSO : raises (stoneHittedPlayer)
+    FloatEventChannelSO ..> LevelTimer : notifies (ApplyPenalty)
 
-    %% Data & Config Dependencies
-    MapRiddleController --> LevelConfigSO : Reads
-    LevelTimer --> LevelConfigSO : Reads
-    LevelTimer --> LevelData : Updates (isTimeUp)
-    gateOpener --> LevelData : Updates (isGateOpen)
-    CardinalLifter --> LevelData : Reads & Updates (isCardinalSafe)
-    FallingDetector --> LevelData : Updates (isPlayerDead)
-    showResults --> LevelData : Reads & Resets
+    LevelTimer ..> FloatEventChannelSO : raises (timeUpdated)
+    FloatEventChannelSO ..> TimerUIView : notifies (UpdateDisplay)
+
+    LevelTimer ..> VoidEventChannelSO : raises (timeExpired)
+    SpawnedStone ..> VoidEventChannelSO : raises (stoneDestroyed)
+
+    %% Local UnityEvent & Direct Interactions
+    AngelInteractor --> PlayerController : subscribes onInteract
+    gateOpener --> PlayerController : subscribes onInteract
+    CardinalLifter --> PlayerController : subscribes onInteract
+    StairSwitch ..> PlayerController : ignores collision
+    SpawnedStone ..> PlayerController : detects collision
+    FallingDetector ..> PlayerController : detects trigger
+
+    %% Data & Config References
+    LevelTimer --> LevelConfigSO : reads startingTime
+    MapRiddleController --> LevelConfigSO : reads wrongMapPenalty
+    LevelTimer --> LevelData : sets isTimeUp
+    FallingDetector --> LevelData : sets isPlayerDead
+    gateOpener --> LevelData : sets isGateOpen
+    CardinalLifter --> LevelData : reads isGateOpen / sets isCardinalSafe
+    showResults --> LevelData : reads flags & ResetData()
 ```
 
-### 2. פירוט קבוצות המחלקות והקשרים ביניהן
+---
 
-##### א. שכבת הנתונים וההגדרות (ScriptableObjects - Data & Config)
+## 3. מיפוי אירועים: שולחים ומקבלים
 
-- מחלקת **`LevelConfigSO`**: מחלקת הגדרות סטטית המכילה את ערכי ברירת המחדל של השלב (זמן התחלתי, עונש זמן על בחירה שגויה במפה ועונש פגיעת אבן). נקראת על ידי `MapRiddleController` ו-`LevelTimer`.
-    
-- מחלקת **`LevelData`**: אובייקט נתונים משותף (Shared State) השומר את מצב התקדמות השחקן והשלב לאורך הסצנות (`isGateOpen`, `isCardinalSafe`, `isPlayerDead`, `isTimeUp`). משמש כגשר בין סצנת המשחק (`Level1Scene`) לבין סצנת הסיום (`GameResults`).
-    
-
-##### ב. מערכת האירועים המרכזית (Event Channels - Pub/Sub)
-
-המערכת משתמשת בשני טיפוסי ערוצים (`VoidEventChannelSO` ו-`FloatEventChannelSO`) להפרדה מלאה בין השולחים למקבלים:
-
-|שם הערוץ / האירוע|טיפוס ערוץ|מי שולח (Broadcaster)|מי מקבל (Listener)|מטרת האירוע|
-|---|---|---|---|---|
-|**`levelStartedChannel`**|`VoidEventChannelSO`|`MapRiddleController` (בבחירת מיקום נכון)|`PlayerController`, `LevelTimer`|פתיחת השליטה בתנועת השחקן והפעלת הספירה לאחור.|
-|**`timePenaltyChannel` / `stoneHittedPlayer`**|`FloatEventChannelSO`|`MapRiddleController` (טעות במפה), `SpawnedStone` (פגיעה בשחקן)|`LevelTimer` (`ApplyPenalty`)|הפחתת שניות עונשין מהזמן הנותר בשעון.|
-|**`timeUpdatedChannel`**|`FloatEventChannelSO`|`LevelTimer` (בכל פריים ובכל עונש)|`TimerUIView` (`UpdateDisplay`)|עדכון תצוגת הטיימר על המסך בפורמט `MM:SS`.|
-|**`timeExpiredChannel`**|`VoidEventChannelSO`|`LevelTimer` (כשהזמן מגיע ל-`0`)|מאזיני מערכת / UI|התראה על פקיעת הזמן לפני מעבר לסצנת הסיום.|
-|**`stoneDestroyedChannel`**|`VoidEventChannelSO`|`SpawnedStone` (בעת `OnDestroy`)|מנהל הספונר / מאזיני שלב|דיווח על השמדת אבן מתגלגלת (לצורך יצירת אבן חדשה או ניקוי).|
-
-##### ג. אינטראקציות מקומיות בסצנה (Local UnityEvents & Physics)
-
-- **`PlayerController`** $\leftrightarrow$ **`AngelInteractor` / `gateOpener` / `CardinalLifter`**:
-    
-    - `PlayerController` חושף אירוע מקומי מסוג `UnityEvent` בשם **`onInteract`**.
-        
-    - כאשר השחקן נכנס לאזור ה-Trigger של המלאך, השער או הקרדינל (`OnTriggerEnter2D`), הרכיב הרלוונטי נרשם דינמית (`AddListener`) לאירוע `onInteract` של השחקן, ומסיר את עצמו (`RemoveListener`) ביציאה מהאזור (`OnTriggerExit2D`).
-        
-    - לחיצה על מקש האינטראקציה מפעילה את המתודה הייעודית (`correctMirror`, `openGate`, או `LiftCardinal`).
-        
-- **`PlayerDetector`**:
-    
-    - מבצע בדיקת `Physics2D.Raycast` אנכית כלפי מטה. כאשר הקרן מזהה אובייקט בעל תגית `"Player"`, היא מפעילה את ה-`UnityEvent` הפנימי **`OnPlayerDetect`** (למשל לשחרור אבנים או הפעלת מלכודת).
-        
-- **`StairSwitch`**:
-    
-    - מזהה כניסת `PlayerController` ל-Trigger ברצפת הביניים ומשנה דינמית את התנגשות הפיזיקה (`Physics2D.IgnoreCollision`) מול המדרגות העליונות כדי לאפשר ירידה חלקה למפלס התחתון.
-        
-- **`FallingDetector` ו-`showResults`**:
-    
-    - `FallingDetector` מזהה נפילה לתהום, מעדכן `levelData.isPlayerDead = true` ומעביר לסצנת `GameResults`.
-        
-    - `showResults` קורא את הדגלים מתוך `LevelData` בסצנת הסיום כדי להציג הודעת ניצחון או הפסד מתאימה, ומאפס את הנתונים (`ResetData()`) בלחיצה על משחק חוזר.
-
-
-# החלטות ארכיטקטורה
-
-### 1. שימוש בערוצי אירועים מבוססי ScriptableObject (Event Channels) במקום הפניות ישירות (Direct References)
-* **מה נבחר:** הפרדה מוחלטת (Decoupling) בין רכיבי המשחק השונים באמצעות נכסי `ScriptableObject` ייעודיים (`VoidEventChannelSO` ו-`FloatEventChannelSO`), המשמשים כמתווכים (Observer Pattern). לדוגמה: `MapRiddleController` ו-`SpawnedStone` משדרים קנסות זמן לערוץ `FloatEventChannelSO` (כמו `timePenaltyChannel` ו-`stoneHittedPlayer`), בעוד `LevelTimer` מאזין להן ומעדכן את `TimerUIView` דרך הערוץ `timeUpdatedChannel`. באופן דומה, פתיחת המשחק נעשית דרך `levelStartedChannel` שמפעיל במקביל את `PlayerController` ואת `LevelTimer`.
-* **מה הייתה החלופה:** יצירת הפניות ישירות (Direct References / `GetComponent` / Singleton) בין המחלקות — למשל שהאבן הנופלת (`SpawnedStone`) או חידת המפה (`MapRiddleController`) יחזיקו הפניה ישירה ל-`LevelTimer`, וש-`LevelTimer` יחזיק הפניה ישירה לרכיב ה-UI (`TextMeshProUGUI`).
-* **למה נבחרה גישה זו:** 
-  1. **מניעת צימוד הדוק (Loose Coupling):** האבן, חידת המפה והטיימר אינם מכירים זה את זה ברמת הקוד. ניתן להחליף, להסיר או לשכפל אבנים ומלכודות מבלי לשבור את הטיימר או את ממשק המשתמש.
-  2. **עבודה נוחה בסביבת Unity (Inspector-Driven):** חיבור השולחים והמאזינים מתבצע בגרירה ב-Inspector ללא תלות בהיררכיה של האובייקטים בסצנה (אין צורך שכל האובייקטים יהיו תחת אותו אב או באותה סצנה).
-  3. **הרחבה פשוטה (Scalability):** הוספת מקור חדש להורדת זמן (כמו מלכודת נוספת) דורשת רק חיבור לאותו נכס ערוץ קיים, ללא שינוי שורת קוד אחת ב-`LevelTimer`.
+| שם האירוע / הערוץ | סוג המנגנון | שולח (Broadcaster / Invoker) | מקבל / מאזין (Listener) | פעולה מתבצעת |
+| :--- | :--- | :--- | :--- | :--- |
+| `levelStartedChannel` | `VoidEventChannelSO` | `MapRiddleController`[cite: 19] | `PlayerController`[cite: 17], `LevelTimer`[cite: 18] | פתיחת שליטה לשחקן (`EnableControl`) והתחלת ספירת הטיימר (`StartTimer`)[cite: 17, 18]. |
+| `timePenaltyChannel` | `FloatEventChannelSO` | `MapRiddleController`[cite: 19] | `LevelTimer`[cite: 18] | הפחתת שניות קנס (`wrongMapPenalty`) מהזמן הנותר (`ApplyPenalty`)[cite: 18, 19]. |
+| `stoneHittedPlayer` | `FloatEventChannelSO` | `SpawnedStone`[cite: 15] | `LevelTimer` *(דרך נכס הערוץ המשותף ב-Inspector)*[cite: 18] | הפחתת שניות קנס (`stoneHitPlayerTimePenality`) בעת פגיעת אבן בשחקן[cite: 15, 18]. |
+| `timeUpdatedChannel` | `FloatEventChannelSO` | `LevelTimer`[cite: 18] | `TimerUIView`[cite: 21] | עדכון תצוגת השעון בפורמט `MM:SS` על המסך (`UpdateDisplay`)[cite: 21]. |
+| `timeExpiredChannel` | `VoidEventChannelSO` | `LevelTimer`[cite: 18] | *(מוגדר להרחבה ב-Inspector)* | שידור התראה שהזמן נגמר (במקביל למעבר הסצנה מתוך `LevelTimer.timeUp()`)[cite: 18]. |
+| `stoneDestroyedChannel` | `VoidEventChannelSO` | `SpawnedStone`[cite: 15] | *(מוגדר ב-Inspector / Spawner חיצוני)* | התראה שאבן הושמדה (יצאה מהגבול או פגעה בשחקן) לצורך מחזוריות יצירת האבנים[cite: 15]. |
+| `onInteract` | `UnityEvent` (ב-`PlayerController`)[cite: 17] | `PlayerController`[cite: 17] | `AngelInteractor`[cite: 10], `gateOpener`[cite: 13], `CardinalLifter`[cite: 11] | הרשמה והסרה דינמית של פעולת האינטראקציה לפי הקרבה לאובייקט (`Trigger`)[cite: 10, 11, 13]. |
+| `OnPlayerDetect` | `UnityEvent` (ב-`PlayerDetector`)[cite: 14] | `PlayerDetector`[cite: 14] | *(מוגדר ב-Inspector)* | הפעלת טריגר סביבתי כאשר קרן ה-`Raycast` מזהה את השחקן[cite: 14]. |
 
 ---
 
-### 2. שמירת מצב המשחק ומעבר נתונים בין סצנות באמצעות ScriptableObject (`LevelData` ו-`LevelConfigSO`)
-* **מה נבחר:** הפרדת הנתונים וניהול מצב המשחק (State) מהאובייקטים שבסצנה אל תוך נכסי `ScriptableObject` חיצוניים: `LevelConfigSO` עבור פרמטרים קבועים של איזון המשחק (`startingTime`, `wrongMapPenalty`, `rockHitPenalty`), ו-`LevelData` עבור מצב הריצה הדינמי של השחקן והשלב (`isGateOpen`, `isCardinalSafe`, `isPlayerDead`, `isTimeUp`). מחלקות כמו `gateOpener`, `CardinalLifter`, `FallingDetector` ו-`LevelTimer` מעדכנות את `LevelData` בסצנת המשחק (`Level1Scene`), וסקריפט `showResults` קורא מתוכו את הנתונים בסצנת הסיום (`GameResults`) ומאפס אותו (`ResetData()`) בלחיצה על משחק חוזר.
-* **מה הייתה החלופה:** שימוש באובייקט `GameManager` בשיטת **Singleton** עם `DontDestroyOnLoad` שנשאר חי בין סצנות, או שמירת הנתונים ב-`PlayerPrefs` / משתנים סטטיים (`static`).
-* **למה נבחרה גישה זו:**
-  1. **שמירה על עקרון האחריות היחידה (SRP):** כל רכיב בסצנה אחראי אך ורק על הלוגיקה שלו (פתיחת שער, זיהוי נפילה, הצגת תוצאות) ואינו מנהל בעצמו אובייקט גלובלי שחי לאורך כל מחזור החיים של האפליקציה.
-  2. **מניעת בעיות אתחול וכפילויות במעבר סצנות:** בניגוד ל-`DontDestroyOnLoad` שעלול ליצור כפילויות של מנהלים בעת טעינה מחדש של `Level1Scene`, נכס `ScriptableObject` קיים כישות נתונים יחידה ברמת הפרויקט, נגיש ישירות מכל סצנה, וניתן לאיפוס מבוקר ומפורש (`levelData.ResetData()`).
-  3. **איזון קל (Data-Driven Design):** ריכוז כל ערכי הקנסות והזמנים ב-`LevelConfigSO` מאפשר לכוונן את רמת הקושי של השלב מתוך ה-Inspector מבלי לגעת בקוד.
+## 4. החלטות ארכיטקטורה (Architecture Decisions)
 
----
+### 1. ערוצי אירועים מבוססי ScriptableObject (Event Channels) במקום הפניות ישירות
+* **מה נבחר:** שימוש בנכסי `ScriptableObject` (`VoidEventChannelSO`, `FloatEventChannelSO`) כמתווכים לפי תבנית **Observer** בין לוגיקת המשחק, הטיימר וה-UI (למשל `MapRiddleController` ו-`SpawnedStone` משדרים קנסות זמן, `LevelTimer` מעבד אותם ומשדר עדכון ל-`TimerUIView`)[cite: 7, 9, 15, 18, 19, 21].
+* **מה הייתה החלופה:** הפניות ישירות (`Direct References` / `GetComponent` / `Singleton`) שבהן האבן או חידת המפה מחזיקות הפניה ישירה ל-`LevelTimer`, ו-`LevelTimer` מחזיק הפניה ישירה לרכיב הטקסט `TextMeshProUGUI`.
+* **למה נבחרה גישה זו:** מניעת צימוד הדוק (Loose Coupling) בין מחלקות בסצנה, אפשרות לחבר משדרים ומאזינים בגרירה ב-Inspector ללא תלות בהיררכיה, ויכולת להוסיף מקורות קנס חדשים בלי לשנות שורת קוד ב-`LevelTimer` או ב-UI.
 
-### 3. שילוב אירועי תגובה מקומיים (`UnityEvent` ו-Triggers) עבור אינטראקציות סביבתיות ממוקדות
-* **מה נבחר:** שימוש במנגנון הרשמה דינמית לאירוע אינטראקציה מקומי (`public UnityEvent onInteract` ב-`PlayerController`) ובגלאי מבוסס קרן (`PlayerDetector` עם `Physics2D.Raycast` ו-`UnityEvent OnPlayerDetect`). כאשר השחקן נכנס לאזורי אינטראקציה נקודתיים (`AngelInteractor`, `gateOpener`, `CardinalLifter`), הם נרשמים זמנית ב-`OnTriggerEnter2D` אל `onInteract` של השחקן ומסירים את עצמם ב-`OnTriggerExit2D`. בנוסף, `StairSwitch` מבצע התאמה פיזיקלית מקומית (`Physics2D.IgnoreCollision`) רק בעת חציית רצפת הביניים.
-* **מה הייתה החלופה:** ניהול מרכזי ב-`PlayerController` שבודק בכל לחיצת כפתור (`Interact`) מה נמצא מול השחקן באמצעות תגיות (`CompareTag`) או סדרת תנאי `if/else` (למשל: "אם לחצתי על כפתור ליד מלאך תסובב מראה, אם ליד שער תפתח שער, אם ליד קרדינל תרים אותו").
-* **למה נבחרה גישה זו:**
-  1. **עמידה בעקרון הפתוח-סגור (Open/Closed Principle):** מחלקת `PlayerController` נשארת נקייה לחלוטין מלוגיקה של חידות או חפצים בעולם — היא רק מודיעה "השחקן ביצע אינטראקציה" (`onInteract.Invoke()`), וכל אובייקט בסביבה אחראי על ההתנהגות שלו כשהשחקן בקרבתו.
-  2. **ביצועים ודיוק:** במקום לבצע בדיקות רציפות כל פריים מתוך השחקן, הרישום מתבצע רק בטווח הרלוונטי, ושימוש ב-`Physics2D.Raycast` בתוך `PlayerDetector` מאפשר זיהוי מדויק של חציית קו הראייה/מלכודת ללא תלות בצורת הקוליידר של השחקן.
+### 2. ניהול מצב המשחק והגדרות שלב באמצעות נכסי נתונים (`LevelData` ו-`LevelConfigSO`)
+* **מה נבחר:** הפרדת הנתונים מהאובייקטים שבסצנה אל תוך נכסי `ScriptableObject`: `LevelConfigSO` לשמירת פרמטרים של איזון השלב (`startingTime`, `wrongMapPenalty`, `rockHitPenalty`)[cite: 8], ו-`LevelData` לשמירת מצב הריצה (`isGateOpen`, `isCardinalSafe`, `isPlayerDead`, `isTimeUp`) בין סצנת המשחק (`Level1Scene`) לסצנת הסיום (`GameResults`)[cite: 11, 12, 13, 18, 20]. *(הערה: במחלקה `SpawnedStone` הוגדר בנוסף שדה מקומי `stoneHitPlayerTimePenality` לכוונון פרטני של קנס האבן ב-Prefab[cite: 15]).*
+* **מה הייתה החלופה:** מחלקת מנהל בשיטת **Singleton** עם `DontDestroyOnLoad` שנשמרת בין סצנות, או שימוש במשתנים סטטיים (`static`) / `PlayerPrefs`.
+* **למה נבחרה גישה זו:** מניעת בעיות אתחול וכפילויות אובייקטים בעת טעינה מחדש של הסצנה, שמירה על עקרון האחריות היחידה (SRP), ויכולת לאפס את כל מצב השלב בצורה מפורשת ונקייה דרך `levelData.ResetData()` בלחיצה על משחק חוזר[cite: 20].
+
+### 3. רישום דינמי לאירועי אינטראקציה מקומיים (`UnityEvent` + Triggers)
+* **מה נבחר:** חשיפת `public UnityEvent onInteract` ב-`PlayerController`[cite: 17], כך שכל אובייקט אינטראקטיבי בעולם (`AngelInteractor`, `gateOpener`, `CardinalLifter`) נרשם אליו ב-`OnTriggerEnter2D` ומסיר את עצמו ב-`OnTriggerExit2D`[cite: 10, 11, 13]. בנוסף, זיהוי חציית המדרגות ב-`PlayerDetector` מבוצע מקומית באמצעות `Physics2D.Raycast` ו-`UnityEvent`[cite: 14].
+* **מה הייתה החלופה:** ניהול מרכזי בתוך `PlayerController` שבודק בכל לחיצת כפתור אילו אובייקטים נמצאים ליד השחקן בעזרת תגיות (`CompareTag`) ושרשרת תנאי `if/else`.
+* **למה נבחרה גישה זו:** עמידה בעקרון הפתוח-סגור (Open/Closed Principle) — מחלקת השחקן אינה מכירה כלל את החידות, השערים או הפסלים שבשלב, וכל אובייקט בעולם אחראי בלעדית על ההתנהגות שלו כשהשחקן בקרבתו..
 
 # איך מוסיפים סוג אויב או חפץ חדש: אילו קבצים משתנים
 המחלקה StoneSpawner - אם נרצה להשתמש בקובץ בשביל ליצור אינסטנסים מסוג אחר פשוט נגרור בחלון הINSPECTOR של האובייקט שמכיל את הסקריפט, את ה PREFAB הרלוונטי 
