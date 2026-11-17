@@ -1,0 +1,1053 @@
+fileFormatVersion: 2
+guid: 1a8ab17953d4fb34a9f987deb937d957
+TextureImporter:
+  internalIDToNameTable:
+  - first:
+      213: 1566065854895795075
+    second: langdon_atlas_0
+  - first:
+      213: 6461306653514573030
+    second: langdon_atlas_1
+  - first:
+      213: -4035193058986706829
+    second: langdon_atlas_2
+  - first:
+      213: 2467826006439184769
+    second: langdon_atlas_3
+  - first:
+      213: 2985967670955841404
+    second: langdon_atlas_4
+  - first:
+      213: 5640449002733499710
+    second: langdon_atlas_5
+  - first:
+      213: 5085674821802232821
+    second: langdon_atlas_6
+  - first:
+      213: 5320274763495452335
+    second: langdon_atlas_7
+  - first:
+      213: -4368786667340848112
+    second: langdon_atlas_8
+  - first:
+      213: 9110845850301585910
+    second: langdon_atlas_9
+  - first:
+      213: -6957940483102957342
+    second: langdon_atlas_10
+  - first:
+      213: 1481499909042026308
+    second: langdon_atlas_11
+  - first:
+      213: -7987912508281841943
+    second: langdon_atlas_12
+  - first:
+      213: -1982299077243315569
+    second: langdon_atlas_13
+  - first:
+      213: -7041894008518892509
+    second: langdon_atlas_14
+  - first:
+      213: 181542751429514930
+    second: langdon_atlas_15
+  - first:
+      213: 7906019423561133105
+    second: langdon_atlas_16
+  - first:
+      213: -3208434811433898609
+    second: langdon_atlas_17
+  - first:
+      213: 8573160488574122208
+    second: langdon_atlas_18
+  - first:
+      213: 6252760550906788746
+    second: langdon_atlas_19
+  - first:
+      213: -1769987419768157587
+    second: langdon_atlas_20
+  - first:
+      213: -5798505491797618474
+    second: langdon_atlas_21
+  - first:
+      213: 4222079733567192808
+    second: langdon_atlas_22
+  - first:
+      213: 28870664028685443
+    second: langdon_atlas_23
+  - first:
+      213: -4679254432949641359
+    second: langdon_atlas_24
+  - first:
+      213: 9009158771413372438
+    second: langdon_atlas_25
+  - first:
+      213: -8454816137756294931
+    second: langdon_atlas_26
+  - first:
+      213: -2736826119550882929
+    second: langdon_atlas_27
+  - first:
+      213: 358586611883644693
+    second: langdon_atlas_28
+  - first:
+      213: -3590711618631227597
+    second: langdon_atlas_29
+  - first:
+      213: 1672789675380133735
+    second: langdon_atlas_30
+  - first:
+      213: 1784531176430793391
+    second: langdon_atlas_31
+  - first:
+      213: 1352400943069638825
+    second: langdon_atlas_32
+  - first:
+      213: -4706225494507369943
+    second: langdon_atlas_33
+  - first:
+      213: 7836444593358671400
+    second: langdon_atlas_34
+  externalObjects: {}
+  serializedVersion: 13
+  mipmaps:
+    mipMapMode: 0
+    enableMipMap: 0
+    sRGBTexture: 1
+    linearTexture: 0
+    fadeOut: 0
+    borderMipMap: 0
+    mipMapsPreserveCoverage: 0
+    alphaTestReferenceValue: 0.5
+    mipMapFadeDistanceStart: 1
+    mipMapFadeDistanceEnd: 3
+  bumpmap:
+    convertToNormalMap: 0
+    externalNormalMap: 0
+    heightScale: 0.25
+    normalMapFilter: 0
+    flipGreenChannel: 0
+  isReadable: 0
+  streamingMipmaps: 0
+  streamingMipmapsPriority: 0
+  vTOnly: 0
+  ignoreMipmapLimit: 0
+  grayScaleToAlpha: 0
+  generateCubemap: 6
+  cubemapConvolution: 0
+  seamlessCubemap: 0
+  textureFormat: 1
+  maxTextureSize: 2048
+  textureSettings:
+    serializedVersion: 2
+    filterMode: 1
+    aniso: 1
+    mipBias: 0
+    wrapU: 1
+    wrapV: 1
+    wrapW: 1
+  nPOTScale: 0
+  lightmap: 0
+  compressionQuality: 50
+  spriteMode: 2
+  spriteExtrude: 1
+  spriteMeshType: 1
+  alignment: 0
+  spritePivot: {x: 0.5, y: 0.5}
+  spritePixelsToUnits: 100
+  spriteBorder: {x: 0, y: 0, z: 0, w: 0}
+  spriteGenerateFallbackPhysicsShape: 1
+  alphaUsage: 1
+  alphaIsTransparency: 1
+  spriteTessellationDetail: -1
+  textureType: 8
+  textureShape: 1
+  singleChannelComponent: 0
+  flipbookRows: 1
+  flipbookColumns: 1
+  maxTextureSizeSet: 0
+  compressionQualitySet: 0
+  textureFormatSet: 0
+  ignorePngGamma: 0
+  applyGammaDecoding: 0
+  swizzle: 50462976
+  cookieLightType: 0
+  platformSettings:
+  - serializedVersion: 4
+    buildTarget: DefaultTexturePlatform
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 1
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    ignorePlatformSupport: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+  - serializedVersion: 4
+    buildTarget: Standalone
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 1
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    ignorePlatformSupport: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+  - serializedVersion: 4
+    buildTarget: Android
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 1
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    ignorePlatformSupport: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+  - serializedVersion: 4
+    buildTarget: WebGL
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 1
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    ignorePlatformSupport: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+  spriteSheet:
+    serializedVersion: 2
+    sprites:
+    - serializedVersion: 2
+      name: langdon_atlas_0
+      rect:
+        serializedVersion: 2
+        x: 51
+        y: 641
+        width: 33
+        height: 111
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 38baeeff898cbb510800000000000000
+      internalID: 1566065854895795075
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: langdon_atlas_1
+      rect:
+        serializedVersion: 2
+        x: 179
+        y: 641
+        width: 34
+        height: 112
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 6e4aa9bfa2c2ba950800000000000000
+      internalID: 6461306653514573030
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: langdon_atlas_2
+      rect:
+        serializedVersion: 2
+        x: 307
+        y: 641
+        width: 34
+        height: 112
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 378b9feca4d1008c0800000000000000
+      internalID: -4035193058986706829
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: langdon_atlas_3
+      rect:
+        serializedVersion: 2
+        x: 435
+        y: 641
+        width: 34
+        height: 111
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 18947418daa7f3220800000000000000
+      internalID: 2467826006439184769
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: langdon_atlas_4
+      rect:
+        serializedVersion: 2
+        x: 40
+        y: 513
+        width: 46
+        height: 111
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: c779f12c6c9407920800000000000000
+      internalID: 2985967670955841404
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: langdon_atlas_5
+      rect:
+        serializedVersion: 2
+        x: 167
+        y: 512
+        width: 51
+        height: 110
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: e35f2adcb76e64e40800000000000000
+      internalID: 5640449002733499710
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: langdon_atlas_6
+      rect:
+        serializedVersion: 2
+        x: 290
+        y: 511
+        width: 66
+        height: 109
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 5fb8bac2e42f39640800000000000000
+      internalID: 5085674821802232821
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: langdon_atlas_7
+      rect:
+        serializedVersion: 2
+        x: 413
+        y: 513
+        width: 66
+        height: 109
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: fae2f9995b965d940800000000000000
+      internalID: 5320274763495452335
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: langdon_atlas_8
+      rect:
+        serializedVersion: 2
+        x: 549
+        y: 513
+        width: 49
+        height: 111
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 014afa14ca3fe53c0800000000000000
+      internalID: -4368786667340848112
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: langdon_atlas_9
+      rect:
+        serializedVersion: 2
+        x: 682
+        y: 512
+        width: 48
+        height: 110
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 6f9519e870a307e70800000000000000
+      internalID: 9110845850301585910
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: langdon_atlas_10
+      rect:
+        serializedVersion: 2
+        x: 805
+        y: 511
+        width: 60
+        height: 109
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 2e0a650defd607f90800000000000000
+      internalID: -6957940483102957342
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: langdon_atlas_11
+      rect:
+        serializedVersion: 2
+        x: 928
+        y: 513
+        width: 60
+        height: 109
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 447393561585f8410800000000000000
+      internalID: 1481499909042026308
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: langdon_atlas_12
+      rect:
+        serializedVersion: 2
+        x: 35
+        y: 385
+        width: 58
+        height: 110
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 9e616fe35eb352190800000000000000
+      internalID: -7987912508281841943
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: langdon_atlas_13
+      rect:
+        serializedVersion: 2
+        x: 155
+        y: 384
+        width: 67
+        height: 106
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: f8ad35eed757d74e0800000000000000
+      internalID: -1982299077243315569
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: langdon_atlas_14
+      rect:
+        serializedVersion: 2
+        x: 274
+        y: 384
+        width: 90
+        height: 102
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 324a74475ba264e90800000000000000
+      internalID: -7041894008518892509
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: langdon_atlas_15
+      rect:
+        serializedVersion: 2
+        x: 416
+        y: 385
+        width: 61
+        height: 110
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 2b6d08aab28f48200800000000000000
+      internalID: 181542751429514930
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: langdon_atlas_16
+      rect:
+        serializedVersion: 2
+        x: 542
+        y: 384
+        width: 64
+        height: 106
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 13c23b027c2d7bd60800000000000000
+      internalID: 7906019423561133105
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: langdon_atlas_17
+      rect:
+        serializedVersion: 2
+        x: 661
+        y: 384
+        width: 84
+        height: 102
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: f8d2c7bb9895973d0800000000000000
+      internalID: -3208434811433898609
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: langdon_atlas_18
+      rect:
+        serializedVersion: 2
+        x: 44
+        y: 255
+        width: 56
+        height: 101
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 0e8ffd3ba0cf9f670800000000000000
+      internalID: 8573160488574122208
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: langdon_atlas_19
+      rect:
+        serializedVersion: 2
+        x: 166
+        y: 257
+        width: 62
+        height: 109
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: a8bff5ea79446c650800000000000000
+      internalID: 6252760550906788746
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: langdon_atlas_20
+      rect:
+        serializedVersion: 2
+        x: 299
+        y: 268
+        width: 55
+        height: 97
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: d6a0fcbc1ddbf67e0800000000000000
+      internalID: -1769987419768157587
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: langdon_atlas_21
+      rect:
+        serializedVersion: 2
+        x: 420
+        y: 256
+        width: 64
+        height: 110
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 6d0504d1af1978fa0800000000000000
+      internalID: -5798505491797618474
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: langdon_atlas_22
+      rect:
+        serializedVersion: 2
+        x: 555
+        y: 255
+        width: 57
+        height: 104
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 8eef5ace527d79a30800000000000000
+      internalID: 4222079733567192808
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: langdon_atlas_23
+      rect:
+        serializedVersion: 2
+        x: 49
+        y: 128
+        width: 38
+        height: 112
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 3840cd947b1966000800000000000000
+      internalID: 28870664028685443
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: langdon_atlas_24
+      rect:
+        serializedVersion: 2
+        x: 175
+        y: 128
+        width: 48
+        height: 111
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 17f5d5e82e2ff0fb0800000000000000
+      internalID: -4679254432949641359
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: langdon_atlas_25
+      rect:
+        serializedVersion: 2
+        x: 302
+        y: 128
+        width: 54
+        height: 111
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 61e40378b26f60d70800000000000000
+      internalID: 9009158771413372438
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: langdon_atlas_26
+      rect:
+        serializedVersion: 2
+        x: 426
+        y: 128
+        width: 59
+        height: 109
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: de0cbcba4857aaa80800000000000000
+      internalID: -8454816137756294931
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: langdon_atlas_27
+      rect:
+        serializedVersion: 2
+        x: 551
+        y: 128
+        width: 57
+        height: 107
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: f8ba8240527d40ad0800000000000000
+      internalID: -2736826119550882929
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: langdon_atlas_28
+      rect:
+        serializedVersion: 2
+        x: 689
+        y: 128
+        width: 37
+        height: 112
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 5171986af94f9f400800000000000000
+      internalID: 358586611883644693
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: langdon_atlas_29
+      rect:
+        serializedVersion: 2
+        x: 38
+        y: 0
+        width: 80
+        height: 108
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 3372e98aeca3b2ec0800000000000000
+      internalID: -3590711618631227597
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: langdon_atlas_30
+      rect:
+        serializedVersion: 2
+        x: 154
+        y: 0
+        width: 95
+        height: 95
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 76f49f0d851f63710800000000000000
+      internalID: 1672789675380133735
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: langdon_atlas_31
+      rect:
+        serializedVersion: 2
+        x: 280
+        y: 0
+        width: 101
+        height: 89
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: fa274cd66ade3c810800000000000000
+      internalID: 1784531176430793391
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: langdon_atlas_32
+      rect:
+        serializedVersion: 2
+        x: 417
+        y: 0
+        width: 86
+        height: 104
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 9a0b19d0e71b4c210800000000000000
+      internalID: 1352400943069638825
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: langdon_atlas_33
+      rect:
+        serializedVersion: 2
+        x: 556
+        y: 0
+        width: 85
+        height: 111
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 92a400fe8d020beb0800000000000000
+      internalID: -4706225494507369943
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: langdon_atlas_34
+      rect:
+        serializedVersion: 2
+        x: 681
+        y: 0
+        width: 76
+        height: 109
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 82e8c21a6d4a0cc60800000000000000
+      internalID: 7836444593358671400
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    outline: []
+    customData: 
+    physicsShape: []
+    bones: []
+    spriteID: 
+    internalID: 0
+    vertices: []
+    indices: 
+    edges: []
+    weights: []
+    secondaryTextures: []
+    spriteCustomMetadata:
+      entries: []
+    nameFileIdTable:
+      langdon_atlas_0: 1566065854895795075
+      langdon_atlas_1: 6461306653514573030
+      langdon_atlas_10: -6957940483102957342
+      langdon_atlas_11: 1481499909042026308
+      langdon_atlas_12: -7987912508281841943
+      langdon_atlas_13: -1982299077243315569
+      langdon_atlas_14: -7041894008518892509
+      langdon_atlas_15: 181542751429514930
+      langdon_atlas_16: 7906019423561133105
+      langdon_atlas_17: -3208434811433898609
+      langdon_atlas_18: 8573160488574122208
+      langdon_atlas_19: 6252760550906788746
+      langdon_atlas_2: -4035193058986706829
+      langdon_atlas_20: -1769987419768157587
+      langdon_atlas_21: -5798505491797618474
+      langdon_atlas_22: 4222079733567192808
+      langdon_atlas_23: 28870664028685443
+      langdon_atlas_24: -4679254432949641359
+      langdon_atlas_25: 9009158771413372438
+      langdon_atlas_26: -8454816137756294931
+      langdon_atlas_27: -2736826119550882929
+      langdon_atlas_28: 358586611883644693
+      langdon_atlas_29: -3590711618631227597
+      langdon_atlas_3: 2467826006439184769
+      langdon_atlas_30: 1672789675380133735
+      langdon_atlas_31: 1784531176430793391
+      langdon_atlas_32: 1352400943069638825
+      langdon_atlas_33: -4706225494507369943
+      langdon_atlas_34: 7836444593358671400
+      langdon_atlas_4: 2985967670955841404
+      langdon_atlas_5: 5640449002733499710
+      langdon_atlas_6: 5085674821802232821
+      langdon_atlas_7: 5320274763495452335
+      langdon_atlas_8: -4368786667340848112
+      langdon_atlas_9: 9110845850301585910
+  mipmapLimitGroupName: 
+  pSDRemoveMatte: 0
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 
