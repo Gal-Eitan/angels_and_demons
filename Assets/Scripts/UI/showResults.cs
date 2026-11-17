@@ -1,5 +1,6 @@
 using TMPro;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 public class showResults : MonoBehaviour
 {
@@ -30,6 +31,10 @@ public class showResults : MonoBehaviour
 
     }
 
-    // Update is called once per frame
+    public void playAgain()
+    {
+        levelData.ResetData();
+        SceneManager.LoadScene("Level1Scene");
+    }
     
 }

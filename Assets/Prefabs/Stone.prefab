@@ -170,6 +170,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: '::'
   destroyXPosition: 13
-  stoneHitPlayerTimePenality: 3
+  stoneHitPlayerTimePenality: 20
   stoneDestroyedChannel: {fileID: 11400000, guid: 4a75a59a4b838e34da7c63866b203862, type: 2}
   stoneHittedPlayer: {fileID: 11400000, guid: 833c4bff6b6b40744ba290ec50617aa5, type: 2}

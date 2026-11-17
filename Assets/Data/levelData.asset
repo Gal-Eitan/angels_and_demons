@@ -12,7 +12,3 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 3ba887aee79e18446baeaf876fce7320, type: 3}
   m_Name: levelData
   m_EditorClassIdentifier: Assembly-CSharp::LevelData
-  isGateOpen: 0
-  isCardinalSafe: 0
-  isPlayerDead: 0
-  isTimeUp: 0
